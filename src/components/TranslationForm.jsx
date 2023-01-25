@@ -3,53 +3,38 @@ import React from "react";
 export default function TranslationForm() {
   return (
     <div className="bg-gray-100">
-      <form className="mt-8 space-y-6" action="#" method="POST">
-        <div className="rounded-md shadow-sm -space-y-px">
-          <div>
-            <label htmlFor="email-address" className="sr-only">
-              Input text
-            </label>
-            <input
-              id="input-text"
-              name="input"
-              type="text"
-              required
-              className="appearance-none rounded-none relative block
-                  w-full px-3 py-2 border border-gray-300
-                  placeholder-gray-500 text-gray-900 rounded-t-md
-                  focus:outline-none focus:ring-indigo-500
-                  focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="input text"
-            />
-          </div>
-          <div>
-            <input
-              id="output-text"
-              name="output"
-              type="text"
-              required
-              className="appearance-none rounded-none relative block
-                  w-full px-3 py-2 border border-gray-300
-                  placeholder-gray-500 text-gray-900 rounded-b-md
-                  focus:outline-none focus:ring-indigo-500
-                  focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="translated text"
-            />
-          </div>
+      <form className="mt-8 pt-5 space-y-6" action="#" method="POST">
+        <div className="rounded-md shadow-sm space-y-5">
+          <label
+            for="input"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Your original text:
+          </label>
+          <textarea
+            id="input"
+            rows="4"
+            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Input text here..."
+          ></textarea>
+
+          <label
+            for="output"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Your translated text:
+          </label>
+          <textarea
+            id="output"
+            rows="4"
+            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Transaltion goes here..."
+          ></textarea>
         </div>
 
-        <div>
-          <button
-            type="submit"
-            className="group relative w-full flex justify-center
-                py-2 px-4 border border-transparent text-sm font-medium
-                rounded-md text-white bg-indigo-600 hover:bg-indigo-700
-                focus:outline-none focus:ring-2 focus:ring-offset-2
-                focus:ring-indigo-500"
-          >
-            Submit
-          </button>
-        </div>
+        <button type="submit" className="">
+          Submit
+        </button>
       </form>
     </div>
   );
