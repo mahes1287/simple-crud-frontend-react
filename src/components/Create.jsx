@@ -1,5 +1,11 @@
 import React from "react";
+import TranslationForm from "./TranslationForm";
 
 export default function Create() {
-  return <div>Create</div>;
+  return (
+    <div>
+      <div>Create new translation</div>
+      <TranslationForm />
+    </div>
+  );
 }
