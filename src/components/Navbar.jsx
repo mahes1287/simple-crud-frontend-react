@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import Translations from "./Translations";
+// import Translations from "./Translations";
 
 export default function Navbar() {
   return (
