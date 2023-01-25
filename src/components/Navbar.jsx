@@ -29,8 +29,8 @@ export default function Navbar() {
             <Link to="/translations" className="mr-5 hover:text-gray-900">
               Translations
             </Link>
-            <Link to="/add" className="mr-5 hover:text-gray-900">
-              add new
+            <Link to="/create" className="mr-5 hover:text-gray-900">
+              create new
             </Link>
           </nav>
           <button className="inline-flex mx-2 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
@@ -43,7 +43,7 @@ export default function Navbar() {
       </header>
       <div>
         <Outlet />
-    </div>
+      </div>
     </div>
   );
 }
