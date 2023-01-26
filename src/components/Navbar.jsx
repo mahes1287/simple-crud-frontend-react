@@ -1,8 +1,12 @@
+import { signOut } from "firebase/auth";
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, Outlet } from "react-router-dom";
+import { auth, logout } from "../firebase";
 // import Translations from "./Translations";
 
 export default function Navbar() {
+  const [user, loading, error] = useAuthState(auth);
   return (
     <div>
       <header className="text-gray-600 body-font">
@@ -33,12 +37,26 @@ export default function Navbar() {
               create new
             </Link>
           </nav>
-          <button className="inline-flex mx-2 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
-            <Link to="/login">Signin</Link>
-          </button>
-          <button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
-            <Link to="/register">Register</Link>
-          </button>
+          {user && (
+            <div>
+              <button className="inline-flex mx-2 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+                <Link to="/login">Signin</Link>
+              </button>
+              <button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+                <Link to="/register">Register</Link>
+              </button>
+            </div>
+          )}
+          {!user && (
+            <div>
+              <button
+                onClick={() => logout()}
+                className="inline-flex mx-2 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+              >
+                Signout
+              </button>
+            </div>
+          )}
         </div>
       </header>
       <div>
@@ -47,3 +65,5 @@ export default function Navbar() {
     </div>
   );
 }
+
+// TODO need to check signout functionality
