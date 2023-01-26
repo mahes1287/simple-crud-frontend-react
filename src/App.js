@@ -7,8 +7,10 @@ import {
 import "./App.css";
 import Create from "./components/Create";
 import Home from "./components/Home";
+import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import NotFound from "./components/NotFound";
+import Register from "./components/Register";
 import Translations from "./components/Translations";
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/translations" element={<Translations />} />
         <Route path="/create" element={<Create />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     )
