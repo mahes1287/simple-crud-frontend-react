@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, registerWithEmailAndPassword } from "../firebase";
+import { Link, useHistory, useNavigate } from "react-router-dom";
 
 export default function Register() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
+
+  const register = () => {
+    registerWithEmailAndPassword(`${firstName} ${lastName}`, email, password);
+  };
+  useEffect(() => {
+    if (loading) return;
+
+    if (user) {
+      navigate("/translations");
+    }
+  }, [user, loading]);
+
   return (
     <div className="container flex justify-center mx-auto">
       <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
-        <form>
+        <form onSubmit={register}>
           <div className="grid grid-cols-2 gap-4">
             <div className="form-group mb-6">
               <input
@@ -24,9 +45,9 @@ export default function Register() {
           ease-in-out
           m-0
           focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                id="exampleInput123"
-                aria-describedby="emailHelp123"
                 placeholder="First name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
             <div className="form-group mb-6">
@@ -47,8 +68,8 @@ export default function Register() {
           ease-in-out
           m-0
           focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                id="exampleInput124"
-                aria-describedby="emailHelp124"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
                 placeholder="Last name"
               />
             </div>
@@ -70,7 +91,8 @@ export default function Register() {
         ease-in-out
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              id="exampleInput125"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email address"
             />
           </div>
