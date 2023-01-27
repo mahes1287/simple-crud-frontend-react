@@ -1,12 +1,16 @@
 import { signOut } from "firebase/auth";
-import React from "react";
+import React, { useContext } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link, Outlet } from "react-router-dom";
-import { auth, logout } from "../firebase";
-// import Translations from "./Translations";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
 
 export default function Navbar() {
-  const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
+  const { user, logout } = useContext(AuthContext);
+  const signout = () => {
+    logout();
+    navigate("/");
+  };
   return (
     <div>
       <header className="text-gray-600 body-font">
@@ -37,7 +41,7 @@ export default function Navbar() {
               create new
             </Link>
           </nav>
-          {user && (
+          {!user && (
             <div>
               <button className="inline-flex mx-2 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
                 <Link to="/login">Signin</Link>
@@ -47,13 +51,13 @@ export default function Navbar() {
               </button>
             </div>
           )}
-          {!user && (
+          {user && (
             <div>
               <button
-                onClick={() => logout()}
+                onClick={signout}
                 className="inline-flex mx-2 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
               >
-                Signout
+                Signout {user?.displayName}
               </button>
             </div>
           )}
