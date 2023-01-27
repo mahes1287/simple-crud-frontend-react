@@ -1,12 +1,25 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, signInWithGoogle } from "../firebase";
-
+import { AuthContext } from "../contexts/AuthContext";
+import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 export default function Login() {
   const navigate = useNavigate();
-  const [user, loading] = useAuthState(auth);
+  const {
+    user,
+    loading,
+    error,
+    auth,
+    db,
+    signInWithGoogle,
+    logInWithEmailAndPassword,
+    registerWithEmailAndPassword,
+    sendPasswordReset,
+    logout,
+  } = useContext(AuthContext);
+
+  //   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   useEffect(() => {
@@ -18,6 +31,7 @@ export default function Login() {
       navigate("/translations");
     }
   }, [user, loading]);
+
   return (
     <div>
       <section className="h-screen">
@@ -59,16 +73,12 @@ export default function Login() {
                   <p className="text-center font-semibold mx-4 mb-0">OR</p>
                 </div>
 
-                <a
+                <div
                   className="px-7 py-3 bg-[#3b5998] text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center mb-3"
-                  href="#!"
-                  role="button"
-                  data-mdb-ripple="true"
-                  data-mdb-ripple-color="light"
-                  onClick={signInWithGoogle}
+                  onClick={() => signInWithGoogle()}
                 >
                   Continue with Google
-                </a>
+                </div>
               </form>
             </div>
           </div>
