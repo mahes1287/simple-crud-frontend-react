@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, registerWithEmailAndPassword } from "../firebase";
+// import { auth, registerWithEmailAndPassword } from "../firebase";
 import { Link, useHistory, useNavigate } from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
 
 export default function Register() {
+  const { registerWithEmailAndPassword, navigate, user, userLoading } = useContext(AuthContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, loading, error] = useAuthState(auth);
-  const navigate = useNavigate();
+  //   const [user, loading, error] = useAuthState(auth);
+  //   const navigate = useNavigate();
 
   const register = () => {
     registerWithEmailAndPassword(`${firstName} ${lastName}`, email, password);
   };
   useEffect(() => {
-    if (loading) return;
+    if (userLoading) return;
 
     if (user) {
       navigate("/translations");
     }
-  }, [user, loading]);
+  }, [user, userLoading]);
 
   return (
     <div className="container flex justify-center mx-auto">
