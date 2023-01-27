@@ -20,7 +20,6 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
