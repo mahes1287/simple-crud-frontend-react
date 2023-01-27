@@ -12,6 +12,7 @@ import Navbar from "./components/Navbar";
 import NotFound from "./components/NotFound";
 import Register from "./components/Register";
 import Translations from "./components/Translations";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   const router = createBrowserRouter(
@@ -27,9 +28,11 @@ function App() {
     )
   );
   return (
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
+    <AuthProvider>
+      <div className="App">
+        <RouterProvider router={router} />
+      </div>
+    </AuthProvider>
   );
 }
 
