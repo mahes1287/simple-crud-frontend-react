@@ -12,7 +12,7 @@ export default async function getAllTranslations(token) {
   try {
     const response = await axios(config);
     console.log(JSON.stringify(response.data));
-    return response;
+    return response.data;
   } catch (error) {
     console.log(error);
   }
