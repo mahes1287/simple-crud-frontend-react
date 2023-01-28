@@ -1,14 +1,46 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import AuthContext from "../contexts/AuthContext";
+import axios, * as others from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function TranslationForm() {
+export default function TranslationForm({ input, output, reqType }) {
+  const navigate = useNavigate();
+  const { user, loading, error, auth } = useContext(AuthContext);
+  auth.onIdTokenChanged(async (user) => {
+    const token = await user?.getIdToken();
+    localStorage.setItem("token", token);
+  });
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit = (data) => {
+    async function create() {
+      let config = {
+        method: "post",
+        url: "http://127.0.0.1:8000/api/translations/create",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify({
+          ...data,
+          fromUser: user.displayName,
+        }),
+      };
+      try {
+        const response = await axios(config);
+        navigate("/translations");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    create();
+  };
   return (
     <div className="bg-gray-100">
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8 pt-5 space-y-6">
