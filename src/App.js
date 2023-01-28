@@ -11,7 +11,9 @@ import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import NotFound from "./components/NotFound";
 import Register from "./components/Register";
+import TranslationCard from "./components/TranslationCard";
 import Translations from "./components/Translations";
+import UpdateForm from "./components/UpdateForm";
 import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
@@ -20,6 +22,9 @@ function App() {
       <Route path="/" element={<Root />}>
         <Route index element={<Home />} />
         <Route path="/translations" element={<Translations />} />
+        <Route path="/translations/:id/" element={<TranslationCard />} />
+        <Route path="/translations/:id/update/" element={<UpdateForm />} />
+
         <Route path="/create" element={<Create />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
