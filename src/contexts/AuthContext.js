@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext } from "react";
 import { app } from "../firebase";
 
 import {
@@ -89,16 +89,17 @@ const logout = () => {
 
 // Provider part
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
   const [user, loading, error] = useAuthState(auth);
-  console.log(user);
-  useEffect(() => {
-    auth.onAuthStateChanged(setCurrentUser);
-  }, []);
+  localStorage.setItem("token", user ? user?.accessToken : null);
+  console.log(localStorage.getItem("token"));
+  auth.onIdTokenChanged(async (user) => {
+    const token = await user?.getIdToken();
+    localStorage.setItem("token", token);
+  });
+
   return (
     <AuthContext.Provider
       value={{
-        currentUser,
         user,
         loading,
         error,
