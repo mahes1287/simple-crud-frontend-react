@@ -1,13 +1,12 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import AuthContext from "../contexts/AuthContext";
+import AuthContext, { useAuth } from "../contexts/AuthContext";
 import axios, * as others from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function UpdateForm() {
   //   console.log({ input, output, id });
   const navigate = useNavigate();
-  const location = useLocation();
   const {
     state: { input, output, id },
   } = useLocation();
@@ -18,14 +17,9 @@ export default function UpdateForm() {
     formState: { errors },
   } = useForm();
 
-  const { user, loading, error, auth } = useContext(AuthContext);
+  const { user} = useAuth();
 
   const [data, setData] = useState({ input, output });
-
-  auth.onIdTokenChanged(async (user) => {
-    const token = await user?.getIdToken();
-    localStorage.setItem("token", token);
-  });
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });

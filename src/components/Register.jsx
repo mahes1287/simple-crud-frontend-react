@@ -2,11 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 // import { auth, registerWithEmailAndPassword } from "../firebase";
 import { Link, useHistory, useNavigate } from "react-router-dom";
-import AuthContext from "../contexts/AuthContext";
+import AuthContext, { useAuth } from "../contexts/AuthContext";
 
 export default function Register() {
-  const { registerWithEmailAndPassword, user, isLoggedIn } =
-    useContext(AuthContext);
+  const { user, registerWithEmailAndPassword } = useAuth();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,10 +17,12 @@ export default function Register() {
     registerWithEmailAndPassword(`${firstName} ${lastName}`, email, password);
   };
   useEffect(() => {
-    if (isLoggedIn) {
+    if (user) {
       navigate("/translations");
+    } else {
+      return;
     }
-  }, [isLoggedIn]);
+  }, [user]);
 
   return (
     <div className="container flex justify-center mx-auto">

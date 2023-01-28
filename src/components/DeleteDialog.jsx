@@ -1,28 +1,24 @@
 import React, { useContext, useState } from "react";
-import AuthContext from "../contexts/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 import axios, * as others from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 const DeleteDialog = ({ id }) => {
-  const { auth } = useContext(AuthContext);
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  auth.onIdTokenChanged(async (user) => {
-    const token = await user?.getIdToken();
-    localStorage.setItem("token", token);
-  });
 
   async function deleteTranslation() {
     let config = {
       method: "delete",
       url: `http://127.0.0.1:8000/api/translations/${id}/delete`,
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${user.accessToken}`,
       },
     };
     try {
       const response = await axios(config);
-      setShowModal(false)
+      setShowModal(false);
       navigate("/translations");
     } catch (error) {
       console.log(error);

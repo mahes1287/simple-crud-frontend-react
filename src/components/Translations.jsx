@@ -1,25 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
-import AuthContext from "../contexts/AuthContext";
+import AuthContext, { useAuth } from "../contexts/AuthContext";
 import axios, * as others from "axios";
 import { Link, useLoaderData } from "react-router-dom";
 import DeleteDialog from "./DeleteDialog";
 
 export default function Translations() {
   const [translations, setTranslations] = useState([]);
-  const { auth, isLoggedIn } = useContext(AuthContext);
-  auth.onIdTokenChanged(async (user) => {
-    const token = await user?.getIdToken();
-    localStorage.setItem("token", token);
-  });
+  const { user } = useAuth();
+
   const { data, error, message } = useLoaderData();
   useEffect(() => {
-   return  setTranslations(data);
+    return setTranslations(data);
   }, [data]);
 
-
-
-
-  if (!isLoggedIn) {
+  if (!user) {
     return (
       <div>
         Please <Link to={"/login"}>Login</Link>
@@ -73,7 +67,7 @@ export default function Translations() {
   );
 }
 
-export const translationsDataLoader = async () => {
+export async function translationsDataLoader() {
   let config = {
     method: "get",
     url: "http://127.0.0.1:8000/api/translations",
@@ -92,4 +86,4 @@ export const translationsDataLoader = async () => {
       message: JSON.parse(error.request.responseText).detail,
     };
   }
-};
+}

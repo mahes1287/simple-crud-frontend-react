@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import AuthContext from "../contexts/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function TranslationView() {
-  const { auth } = useContext(AuthContext);
+  const {
+    user: { accessToken },
+  } = useAuth();
   const { id } = useParams();
-  auth.onIdTokenChanged(async (user) => {
-    const token = await user?.getIdToken();
-    localStorage.setItem("token", token);
-  });
+
   console.log(id);
   return (
     <div className="flex flex-col space-y-2 max-w-7xl ml-5 mx-auto bg-orange-100 m-5 rounded-lg shadow-md hover:bg-orange-200">
