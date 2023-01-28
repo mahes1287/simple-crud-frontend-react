@@ -5,6 +5,7 @@ import AuthContext, { useAuth } from "../contexts/AuthContext";
 export default function Navbar() {
   const navigate = useNavigate();
   const auth = useAuth();
+  console.log(auth.user);
   const handleLogout = () => {
     auth.logout();
     navigate("/");
