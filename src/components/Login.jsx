@@ -1,32 +1,21 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
-  const {
-    user,
-    loading,
-    error,
-    auth,
-    db,
-    isLoggedIn,
-    signInWithGoogle,
-    logInWithEmailAndPassword,
-    registerWithEmailAndPassword,
-    sendPasswordReset,
-    logout,
-  } = useContext(AuthContext);
-
+  const { user, signInWithGoogle, logInWithEmailAndPassword } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   useEffect(() => {
-    if (isLoggedIn) {
+    if (user) {
       navigate("/translations");
+    } else {
+      return;
     }
-  }, [isLoggedIn]);
-
+  }, [user]);
+  // TODO check this useeffect
   return (
     <div>
       <section className="h-screen">
@@ -59,7 +48,7 @@ export default function Login() {
                   className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
                   data-mdb-ripple="true"
                   data-mdb-ripple-color="light"
-                  onClick={() => signInWithEmailAndPassword(email, password)}
+                  onClick={() => logInWithEmailAndPassword(email, password)}
                 >
                   Sign in
                 </button>
