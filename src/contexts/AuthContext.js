@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { app } from "../firebase";
 
 import {
@@ -11,23 +11,31 @@ import {
   signOut,
 } from "firebase/auth";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 const auth = getAuth(app);
 
 const googleProvider = new GoogleAuthProvider();
 
 // Provider part
 export function AuthProvider({ children }) {
-  localStorage.setItem("token", user ? user?.accessToken : null);
-  auth.onIdTokenChanged(async (user) => {
-    const token = await user?.getIdToken();
-    localStorage.setItem("token", token);
-  });
+  const auth = useAuthProvider();
+  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+}
+
+// Hook to get the auth object
+const useAuth = () => {
+  return useContext(AuthContext);
+};
+
+// Provider hook to handle auth and state
+const useAuthProvider = () => {
+  const [user, setUser] = useState(null);
 
   const signInWithGoogle = async () => {
     try {
-      const res = await signInWithPopup(auth, googleProvider);
-      const user = res.user;
+      const response = await signInWithPopup(auth, googleProvider);
+      setUser(response.user);
+      return response.user;
     } catch (err) {
       console.error(err);
       alert(err.message);
@@ -36,7 +44,9 @@ export function AuthProvider({ children }) {
 
   const logInWithEmailAndPassword = async (email, password) => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      setUser(response.user);
+      return response.user;
     } catch (err) {
       console.error(err);
       alert(err.message);
@@ -45,8 +55,13 @@ export function AuthProvider({ children }) {
 
   const registerWithEmailAndPassword = async (name, email, password) => {
     try {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
-      const user = res.user;
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      setUser(response.user);
+      return response.user;
     } catch (err) {
       console.error(err);
       alert(err.message);
@@ -63,24 +78,37 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const logout = () => {
-    signOut(auth);
+  const logout = async () => {
+    await signOut(auth);
+    setUser(false);
   };
 
-  return (
-    <AuthContext.Provider
-      value={{
-        auth,
-        signInWithGoogle,
-        logInWithEmailAndPassword,
-        registerWithEmailAndPassword,
-        sendPasswordReset,
-        logout,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
-}
+  // Subscribe to user on mount
+  // Because this sets state in the callback it will cause any ...
+  // ... component that utilizes this hook to re-render with the ...
+  // ... latest auth object.
 
-export default AuthContext;
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(false);
+      }
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, []);
+
+  // return the objects
+
+  return {
+    user,
+    logInWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    registerWithEmailAndPassword,
+    sendPasswordReset,
+    logout,
+  };
+};
