@@ -35,6 +35,7 @@ const useAuthProvider = () => {
     try {
       const response = await signInWithPopup(auth, googleProvider);
       setUser(response.user);
+      localStorage.setItem("token", response.user.accessToken);
       return response.user;
     } catch (err) {
       console.error(err);
@@ -92,8 +93,10 @@ const useAuthProvider = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
+        localStorage.setItem("token", user.accessToken);
       } else {
         setUser(false);
+        localStorage.clear();
       }
     });
 
