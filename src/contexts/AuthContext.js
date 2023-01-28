@@ -105,6 +105,7 @@ const useAuthProvider = () => {
 
   return {
     user,
+    signInWithGoogle,
     logInWithEmailAndPassword,
     signInWithEmailAndPassword,
     registerWithEmailAndPassword,
