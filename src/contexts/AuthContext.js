@@ -11,8 +11,6 @@ import {
   signOut,
 } from "firebase/auth";
 
-import { useAuthState } from "react-firebase-hooks/auth";
-
 export const AuthContext = createContext();
 const auth = getAuth(app);
 
@@ -20,9 +18,6 @@ const googleProvider = new GoogleAuthProvider();
 
 // Provider part
 export function AuthProvider({ children }) {
-  const [user, loading, error] = useAuthState(auth);
-  const [isLoggedIn, setIsLoggedIn] = useState();
-
   localStorage.setItem("token", user ? user?.accessToken : null);
   auth.onIdTokenChanged(async (user) => {
     const token = await user?.getIdToken();
@@ -42,7 +37,6 @@ export function AuthProvider({ children }) {
   const logInWithEmailAndPassword = async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      setIsLoggedIn(true);
     } catch (err) {
       console.error(err);
       alert(err.message);
@@ -76,9 +70,6 @@ export function AuthProvider({ children }) {
   return (
     <AuthContext.Provider
       value={{
-        user,
-        loading,
-        error,
         auth,
         signInWithGoogle,
         logInWithEmailAndPassword,
