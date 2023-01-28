@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import AuthContext from "../contexts/AuthContext";
+import AuthContext, { useAuth } from "../contexts/AuthContext";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { user, logout, isLoggedIn } = useContext(AuthContext);
+  const auth = useAuth();
   const handleLogout = () => {
-    logout();
+    auth.logout();
     navigate("/");
   };
   return (
@@ -39,7 +39,7 @@ export default function Navbar() {
               create new
             </Link>
           </nav>
-          {!isLoggedIn && (
+          {!auth.user && (
             <div>
               <button className="inline-flex mx-2 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
                 <Link to="/login">Login</Link>
@@ -49,13 +49,13 @@ export default function Navbar() {
               </button>
             </div>
           )}
-          {isLoggedIn && (
+          {auth.user && (
             <div>
               <button
                 onClick={handleLogout}
                 className="inline-flex mx-2 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
               >
-                Logout {user?.displayName}
+                Logout {auth.user?.displayName}
               </button>
             </div>
           )}
@@ -67,5 +67,3 @@ export default function Navbar() {
     </div>
   );
 }
-
-// TODO need to check signout functionality
