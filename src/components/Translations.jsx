@@ -1,69 +1,95 @@
 import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import axios, * as others from "axios";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+import DeleteDialog from "./DeleteDialog";
 
 export default function Translations() {
   const [translations, setTranslations] = useState([]);
-  const { user, loading, error, auth } = useContext(AuthContext);
+  const { auth, isLoggedIn } = useContext(AuthContext);
   auth.onIdTokenChanged(async (user) => {
     const token = await user?.getIdToken();
     localStorage.setItem("token", token);
   });
-
+  const { data, error, message } = useLoaderData();
   useEffect(() => {
-    async function getAllTranslations() {
-      let config = {
-        method: "get",
-        url: "http://127.0.0.1:8000/api/translations",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      };
-      try {
-        const response = await axios(config);
-        setTranslations(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getAllTranslations();
-  }, []);
+   return  setTranslations(data);
+  }, [data]);
+
+
+
+
+  if (!isLoggedIn) {
+    return (
+      <div>
+        Please <Link to={"/login"}>Login</Link>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div>There is following error: {message}. Contact site administrator</div>
+    );
+  }
   return (
     <div>
       <h1>Translations</h1>
-      {translations.map(({ input, output, fromUser, id }) => (
-        <div
-          key={id}
-          className="flex flex-col space-y-2 max-w-7xl ml-5 mx-auto bg-orange-100 m-5 rounded-lg shadow-md hover:bg-orange-200"
-        >
-          <div className="text-xl ml-3 py-3">
-            <span className="italic ">input: </span> {input}
-          </div>
-          <div className="text-xl ml-3 py-3">
-            <span className="italic ">output: </span> {output}
-          </div>
-          <Link
-            to={`/translations/${id}/`}
-            state={{ input: input, output: output, id: id, fromUser: fromUser }}
-            className="flex sm:flex-col md:flex-row justify-center items-center"
+
+      {translations.length === 0 ? (
+        <div>Its lonely here... Add some data..</div>
+      ) : (
+        translations.map(({ input, output, fromUser, id }) => (
+          <div
+            key={id}
+            className="flex flex-col space-y-2 max-w-7xl ml-5 mx-auto bg-orange-100 m-5 rounded-lg shadow-md hover:bg-orange-200"
           >
-            <button className="m-2 font-semibold bg-green-100 hover:bg-green-400 px-4 rounded-lg py-2">
-              view
-            </button>
-            <Link
-              to={`/translations/${id}/update/`}
-              state={{ input: input, output: output, id: id }}
-              className="m-2 font-semibold bg-blue-100 hover:bg-blue-400 px-4 rounded-lg py-2"
-            >
-              edit
-            </Link>
-            <button className="m-2 font-semibold bg-red-100 hover:bg-red-400 px-4 rounded-lg py-2">
-              delete
-            </button>
-          </Link>
-        </div>
-      ))}
+            <div className="text-xl ml-3 py-3">
+              <span className="italic ">input: </span> {input}
+            </div>
+            <div className="text-xl ml-3 py-3">
+              <span className="italic ">output: </span> {output}
+            </div>
+            <div className="flex sm:flex-col md:flex-row justify-center items-center">
+              <Link
+                to={`/translations/${id}/`}
+                className="m-2 font-semibold bg-green-100 hover:bg-green-400 px-4 rounded-lg py-2"
+              >
+                view
+              </Link>
+              <Link
+                to={`/translations/${id}/update/`}
+                state={{ input: input, output: output, id: id }}
+                className="m-2 font-semibold bg-blue-100 hover:bg-blue-400 px-4 rounded-lg py-2"
+              >
+                edit
+              </Link>
+              <DeleteDialog id={id} />
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 }
+
+export const translationsDataLoader = async () => {
+  let config = {
+    method: "get",
+    url: "http://127.0.0.1:8000/api/translations",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
+  try {
+    const response = await axios(config);
+    return { data: response.data, error: false, message: null };
+  } catch (error) {
+    console.log(JSON.parse(error.request.responseText).detail);
+    return {
+      data: null,
+      error: true,
+      message: JSON.parse(error.request.responseText).detail,
+    };
+  }
+};

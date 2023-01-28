@@ -1,13 +1,11 @@
-import { signOut } from "firebase/auth";
 import React, { useContext } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { user, logout } = useContext(AuthContext);
-  const signout = () => {
+  const { user, logout, isLoggedIn } = useContext(AuthContext);
+  const handleLogout = () => {
     logout();
     navigate("/");
   };
@@ -41,23 +39,23 @@ export default function Navbar() {
               create new
             </Link>
           </nav>
-          {!user && (
+          {!isLoggedIn && (
             <div>
               <button className="inline-flex mx-2 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
-                <Link to="/login">Signin</Link>
+                <Link to="/login">Login</Link>
               </button>
               <button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
                 <Link to="/register">Register</Link>
               </button>
             </div>
           )}
-          {user && (
+          {isLoggedIn && (
             <div>
               <button
-                onClick={signout}
+                onClick={handleLogout}
                 className="inline-flex mx-2 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
               >
-                Signout {user?.displayName}
+                Logout {user?.displayName}
               </button>
             </div>
           )}

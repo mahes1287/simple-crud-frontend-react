@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -11,18 +12,25 @@ import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import NotFound from "./components/NotFound";
 import Register from "./components/Register";
-import TranslationCard from "./components/TranslationCard";
-import Translations from "./components/Translations";
+import TranslationCard from "./components/TranslationView";
+import Translations, {
+  translationsDataLoader,
+} from "./components/Translations";
 import UpdateForm from "./components/UpdateForm";
 import { AuthProvider } from "./contexts/AuthContext";
-
+import TranslationView from "./components/TranslationView";
+// import { user } from "./contexts/AuthContext";
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
         <Route index element={<Home />} />
-        <Route path="/translations" element={<Translations />} />
-        <Route path="/translations/:id/" element={<TranslationCard />} />
+        <Route
+          path="/translations"
+          element={<Translations />}
+          loader={translationsDataLoader}
+        />
+        <Route path="/translations/:id/" element={<TranslationView />} />
         <Route path="/translations/:id/update/" element={<UpdateForm />} />
 
         <Route path="/create" element={<Create />} />

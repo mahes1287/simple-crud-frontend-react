@@ -5,24 +5,23 @@ import { Link, useHistory, useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 
 export default function Register() {
-  const { registerWithEmailAndPassword, navigate, user, userLoading } = useContext(AuthContext);
+  const { registerWithEmailAndPassword, user, isLoggedIn } =
+    useContext(AuthContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   //   const [user, loading, error] = useAuthState(auth);
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const register = () => {
     registerWithEmailAndPassword(`${firstName} ${lastName}`, email, password);
   };
   useEffect(() => {
-    if (userLoading) return;
-
-    if (user) {
+    if (isLoggedIn) {
       navigate("/translations");
     }
-  }, [user, userLoading]);
+  }, [isLoggedIn]);
 
   return (
     <div className="container flex justify-center mx-auto">

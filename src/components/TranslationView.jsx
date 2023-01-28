@@ -1,22 +1,18 @@
 import React, { useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 
-export default function TranslationCard() {
-  const { user, loading, error, auth } = useContext(AuthContext);
+export default function TranslationView() {
+  const { auth } = useContext(AuthContext);
+  const { id } = useParams();
   auth.onIdTokenChanged(async (user) => {
     const token = await user?.getIdToken();
     localStorage.setItem("token", token);
   });
-  const {
-    state: { input, output, id, fromUser },
-  } = useLocation();
+  console.log(id);
   return (
-    <div
-      key={id}
-      className="flex flex-col space-y-2 max-w-7xl ml-5 mx-auto bg-orange-100 m-5 rounded-lg shadow-md hover:bg-orange-200"
-    >
-      <div className="text-xl ml-3 py-3">
+    <div className="flex flex-col space-y-2 max-w-7xl ml-5 mx-auto bg-orange-100 m-5 rounded-lg shadow-md hover:bg-orange-200">
+      {/* <div className="text-xl ml-3 py-3">
         <span className="italic ">input: </span> {input}
       </div>
       <div className="text-xl ml-3 py-3">
@@ -36,7 +32,7 @@ export default function TranslationCard() {
         <button className="m-2 font-semibold bg-red-100 hover:bg-red-400 px-4 rounded-lg py-2">
           delete
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

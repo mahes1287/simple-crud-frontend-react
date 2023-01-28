@@ -2,7 +2,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+
 export default function Login() {
   const navigate = useNavigate();
   const {
@@ -11,6 +11,7 @@ export default function Login() {
     error,
     auth,
     db,
+    isLoggedIn,
     signInWithGoogle,
     logInWithEmailAndPassword,
     registerWithEmailAndPassword,
@@ -18,19 +19,13 @@ export default function Login() {
     logout,
   } = useContext(AuthContext);
 
-  //   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   useEffect(() => {
-    if (loading) {
-      return;
-    }
-    console.log({ user });
-    if (user) {
+    if (isLoggedIn) {
       navigate("/translations");
     }
-  }, [user, loading]);
+  }, [isLoggedIn]);
 
   return (
     <div>
