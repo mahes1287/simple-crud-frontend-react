@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
 }
 
 // Hook to get the auth object
-const useAuth = () => {
+export const useAuth = () => {
   return useContext(AuthContext);
 };
 
