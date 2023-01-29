@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function TranslationForm() {
@@ -37,6 +37,15 @@ export default function TranslationForm() {
     }
     create();
   };
+
+  if (!localStorage.getItem("token")) {
+    return (
+      <div>
+        Please <Link to={"/login"}>Login</Link>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-gray-100">
       <div>Create new translation</div>
