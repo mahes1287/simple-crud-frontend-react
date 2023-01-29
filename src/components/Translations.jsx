@@ -13,7 +13,7 @@ export default function Translations() {
     return setTranslations(data);
   }, [data]);
 
-  if (!user) {
+  if (!localStorage.getItem("token")) {
     return (
       <div>
         Please <Link to={"/login"}>Login</Link>
