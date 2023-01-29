@@ -1,8 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-// import { auth, registerWithEmailAndPassword } from "../firebase";
-import { Link, useHistory, useNavigate } from "react-router-dom";
-import AuthContext, { useAuth } from "../contexts/AuthContext";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Register() {
   const { user, registerWithEmailAndPassword } = useAuth();
@@ -116,6 +114,8 @@ export default function Register() {
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id="exampleInput126"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
             />
           </div>

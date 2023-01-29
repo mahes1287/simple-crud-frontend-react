@@ -1,17 +1,17 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import axios, * as others from "axios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
-export default function TranslationForm({ input, output, reqType }) {
+export default function TranslationForm() {
   const navigate = useNavigate();
   const { user } = useAuth();
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
@@ -29,7 +29,7 @@ export default function TranslationForm({ input, output, reqType }) {
         }),
       };
       try {
-        const response = await axios(config);
+        await axios(config);
         navigate("/translations");
       } catch (error) {
         console.log(error);

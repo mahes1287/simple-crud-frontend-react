@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import AuthContext, { useAuth } from "../contexts/AuthContext";
-import axios, * as others from "axios";
+import { useAuth } from "../contexts/AuthContext";
+import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function UpdateForm() {
@@ -14,10 +14,10 @@ export default function UpdateForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
 
-  const { user} = useAuth();
+  const { user } = useAuth();
 
   const [data, setData] = useState({ input, output });
 
@@ -40,7 +40,7 @@ export default function UpdateForm() {
         }),
       };
       try {
-        const response = await axios(config);
+        await axios(config);
         navigate("/translations");
       } catch (error) {
         console.log(error);

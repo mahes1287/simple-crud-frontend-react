@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import axios, * as others from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const DeleteDialog = ({ id }) => {
   const { user } = useAuth();
@@ -17,7 +17,7 @@ const DeleteDialog = ({ id }) => {
       },
     };
     try {
-      const response = await axios(config);
+      await axios(config);
       setShowModal(false);
       navigate("/translations");
     } catch (error) {

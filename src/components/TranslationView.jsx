@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import DeleteDialog from "./DeleteDialog";
-import axios, * as others from "axios";
+import axios from "axios";
 export default function TranslationView() {
   const { id } = useParams();
   const [data, setData] = useState({});

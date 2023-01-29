@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import AuthContext, { useAuth } from "../contexts/AuthContext";
-import axios, * as others from "axios";
+import React, {  useEffect, useState } from "react";
+import axios from "axios";
 import { Link, useLoaderData } from "react-router-dom";
 import DeleteDialog from "./DeleteDialog";
 
 export default function Translations() {
   const [translations, setTranslations] = useState([]);
-  const { user } = useAuth();
 
   const { data, error, message } = useLoaderData();
   useEffect(() => {
