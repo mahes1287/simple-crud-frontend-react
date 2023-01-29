@@ -1,29 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../contexts/AuthContext";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link,  useNavigate, useParams } from "react-router-dom";
 
 export default function UpdateForm() {
-  //   console.log({ input, output, id });
   const navigate = useNavigate();
-  const {
-    state: { input, output, id },
-  } = useLocation();
-
-  const {
-    register,
-    handleSubmit,
-    // formState: { errors },
-  } = useForm();
+  const { id } = useParams();
+  const { register, handleSubmit } = useForm();
 
   const { user } = useAuth();
 
-  const [data, setData] = useState({ input, output });
+  const [data, setData] = useState({});
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    async function getData() {
+      let config = {
+        method: "get",
+        url: `http://127.0.0.1:8000/api/translations/${id}`,
+      };
+      try {
+        const response = await axios(config);
+        setData(response.data)
+      } catch (error) {
+        console.log(JSON.parse(error.request.responseText).detail);
+        return {
+          data: null,
+          error: true,
+          message: JSON.parse(error.request.responseText).detail,
+        };
+      }
+    }
+    getData();
+  }, [id]);
 
   const onSubmit = (data) => {
     async function update() {
@@ -48,6 +61,15 @@ export default function UpdateForm() {
     }
     update();
   };
+
+  if (!localStorage.getItem("token")) {
+    return (
+      <div>
+        Please <Link to={"/login"}>Login</Link>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-gray-100">
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8 pt-5 space-y-6">

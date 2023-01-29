@@ -11,14 +11,6 @@ export default function Translations() {
     return setTranslations(data);
   }, [data]);
 
-  // if (!localStorage.getItem("token")) {
-  //   return (
-  //     <div>
-  //       Please <Link to={"/login"}>Login</Link>
-  //     </div>
-  //   );
-  // }
-
   if (error) {
     return (
       <div>There is following error: {message}. Contact site administrator</div>
