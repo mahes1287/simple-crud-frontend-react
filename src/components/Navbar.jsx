@@ -40,23 +40,22 @@ export default function Navbar() {
               create new
             </Link>
           </nav>
-          {!auth.user && (
+          {localStorage.getItem("token") ? (
+            <div>
+              <button
+                onClick={handleLogout}
+                className="inline-flex mx-2 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
             <div>
               <button className="inline-flex mx-2 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
                 <Link to="/login">Login</Link>
               </button>
               <button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
                 <Link to="/register">Register</Link>
-              </button>
-            </div>
-          )}
-          {auth.user && (
-            <div>
-              <button
-                onClick={handleLogout}
-                className="inline-flex mx-2 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
-              >
-                Logout {auth.user?.displayName}
               </button>
             </div>
           )}
