@@ -11,9 +11,6 @@ export default function TranslationView() {
       let config = {
         method: "get",
         url: `http://127.0.0.1:8000/api/translations/${id}`,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
       };
       try {
         const response = await axios(config);

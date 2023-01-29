@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useLoaderData } from "react-router-dom";
 import DeleteDialog from "./DeleteDialog";
@@ -11,13 +11,13 @@ export default function Translations() {
     return setTranslations(data);
   }, [data]);
 
-  if (!localStorage.getItem("token")) {
-    return (
-      <div>
-        Please <Link to={"/login"}>Login</Link>
-      </div>
-    );
-  }
+  // if (!localStorage.getItem("token")) {
+  //   return (
+  //     <div>
+  //       Please <Link to={"/login"}>Login</Link>
+  //     </div>
+  //   );
+  // }
 
   if (error) {
     return (
@@ -69,12 +69,10 @@ export async function translationsDataLoader() {
   let config = {
     method: "get",
     url: "http://127.0.0.1:8000/api/translations",
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
   };
   try {
     const response = await axios(config);
+    console.log({ response });
     return { data: response.data, error: false, message: null };
   } catch (error) {
     console.log(JSON.parse(error.request.responseText).detail);
