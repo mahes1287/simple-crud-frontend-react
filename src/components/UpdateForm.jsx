@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../contexts/AuthContext";
 import axios from "axios";
-import { Link,  useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function UpdateForm() {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ export default function UpdateForm() {
       };
       try {
         const response = await axios(config);
-        setData(response.data)
+        setData(response.data);
       } catch (error) {
         console.log(JSON.parse(error.request.responseText).detail);
         return {
@@ -65,7 +65,11 @@ export default function UpdateForm() {
   if (!localStorage.getItem("token")) {
     return (
       <div>
-        Please <Link to={"/login"}>Login</Link>
+        Please{" "}
+        <Link to={"/login"} className="text-blue-500 hover:text-blue-800">
+          Login
+        </Link>{" "}
+        to edit
       </div>
     );
   }
