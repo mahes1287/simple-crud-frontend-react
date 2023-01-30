@@ -49,7 +49,7 @@ export default function UpdateForm() {
         },
         data: JSON.stringify({
           ...data,
-          fromUser: user.displayName,
+          fromUser: localStorage.getItem("displayName"),
         }),
       };
       try {
