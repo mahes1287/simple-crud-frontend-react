@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import addUserDetailsAPI from "../api/addUserDetailsAPI";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Register() {
@@ -8,11 +9,31 @@ export default function Register() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
-  const register = () => {
-    registerWithEmailAndPassword(`${firstName} ${lastName}`, email, password);
+  const register = async () => {
+    const displayName = `${firstName} ${lastName}`;
+
+    try {
+      const response = await registerWithEmailAndPassword(
+        `${firstName} ${lastName}`,
+        email,
+        password
+      );
+
+      localStorage.setItem("displayName", `${firstName} ${lastName}`);
+
+      await addUserDetailsAPI(
+        response.uid,
+        email,
+        firstName,
+        lastName,
+        displayName
+      );
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    }
   };
   useEffect(() => {
     if (user) {
@@ -20,12 +41,12 @@ export default function Register() {
     } else {
       return;
     }
-  }, [user]);
+  }, [user, navigate]);
 
   return (
     <div className="container flex justify-center mx-auto">
       <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
-        <form onSubmit={register}>
+        <form>
           <div className="grid grid-cols-2 gap-4">
             <div className="form-group mb-6">
               <input
@@ -121,7 +142,7 @@ export default function Register() {
           </div>
 
           <button
-            type="submit"
+            type="button"
             className="
       w-full
       px-6
@@ -140,6 +161,7 @@ export default function Register() {
       transition
       duration-150
       ease-in-out"
+            onClick={register}
           >
             Sign up
           </button>
