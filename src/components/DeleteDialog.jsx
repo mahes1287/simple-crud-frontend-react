@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const DeleteDialog = ({ id }) => {
-  const { user } = useAuth();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
 

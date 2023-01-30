@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useAuth } from "../contexts/AuthContext";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
@@ -8,8 +7,6 @@ export default function UpdateForm() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { register, handleSubmit } = useForm();
-
-  const { user } = useAuth();
 
   const [data, setData] = useState({});
 
