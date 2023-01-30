@@ -13,7 +13,7 @@ const DeleteDialog = ({ id }) => {
       method: "delete",
       url: `${process.env.REACT_APP_BASE_API_URL}/api/translations/${id}/delete`,
       headers: {
-        Authorization: `Bearer ${user.accessToken}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     };
     try {
