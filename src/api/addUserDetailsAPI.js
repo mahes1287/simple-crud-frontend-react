@@ -1,9 +1,15 @@
 import axios from "axios";
 
-export async function addUserDetailsAPI(uid, email, firstname, lastname) {
+export default async function addUserDetailsAPI(
+  uid,
+  email,
+  firstname,
+  lastname,
+  displayName
+) {
   let config = {
     method: "post",
-    url: `${process.env.REACT_APP_BASE_API_URL}/api/translations/create`,
+    url: `${process.env.REACT_APP_BASE_API_URL}/api/user/create`,
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
       "Content-Type": "application/json",
@@ -11,16 +17,14 @@ export async function addUserDetailsAPI(uid, email, firstname, lastname) {
     data: JSON.stringify({
       uid: uid,
       email: email,
-      firstname: firstname,
-      lastname: lastname,
-      dispalyName: localStorage.getItem("dispalyName"),
+      first_name: firstname,
+      last_name: lastname,
+      displayName: displayName,
     }),
   };
   try {
     const response = await axios(config);
-    
-    return response.data
-
+    return response.data;
   } catch (error) {
     console.log(error);
   }
