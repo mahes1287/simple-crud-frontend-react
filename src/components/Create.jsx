@@ -20,12 +20,12 @@ export default function TranslationForm() {
         method: "post",
         url: `${process.env.REACT_APP_BASE_API_URL}/api/translations/create`,
         headers: {
-          Authorization: `Bearer ${user.accessToken}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
         data: JSON.stringify({
           ...data,
-          fromUser: user.displayName,
+          fromUser: localStorage.getItem("displayName"),
         }),
       };
       try {
