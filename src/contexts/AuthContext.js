@@ -10,6 +10,7 @@ import {
   sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
+import getUserAPI from "../api/getUserAPI";
 
 const AuthContext = createContext();
 const auth = getAuth(app);
@@ -36,6 +37,7 @@ const useAuthProvider = () => {
       const response = await signInWithPopup(auth, googleProvider);
       setUser(response.user);
       localStorage.setItem("token", response.user.accessToken);
+      localStorage.setItem("displayName", response.user.displayName);
       return response.user;
     } catch (err) {
       console.error(err);
@@ -46,7 +48,10 @@ const useAuthProvider = () => {
   const logInWithEmailAndPassword = async (email, password) => {
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
+      localStorage.setItem("token", response.user.accessToken);
+      localStorage.setItem("displayName", response.user.displayName);
       setUser(response.user);
+      await getUserAPI(response.user.uid);
       return response.user;
     } catch (err) {
       console.error(err);
@@ -110,7 +115,6 @@ const useAuthProvider = () => {
     user,
     signInWithGoogle,
     logInWithEmailAndPassword,
-    signInWithEmailAndPassword,
     registerWithEmailAndPassword,
     sendPasswordReset,
     logout,
