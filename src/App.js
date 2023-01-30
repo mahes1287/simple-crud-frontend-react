@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -12,14 +11,12 @@ import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import NotFound from "./components/NotFound";
 import Register from "./components/Register";
-import TranslationCard from "./components/TranslationView";
 import Translations, {
   translationsDataLoader,
 } from "./components/Translations";
 import UpdateForm from "./components/UpdateForm";
 import { AuthProvider } from "./contexts/AuthContext";
 import TranslationView from "./components/TranslationView";
-// import { user } from "./contexts/AuthContext";
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
