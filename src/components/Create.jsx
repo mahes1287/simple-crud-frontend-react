@@ -41,7 +41,11 @@ export default function TranslationForm() {
   if (!localStorage.getItem("token")) {
     return (
       <div>
-        Please <Link to={"/login"}>Login</Link>
+        Please{" "}
+        <Link to={"/login"} className="text-blue-500 hover:text-blue-800">
+          Login
+        </Link>{" "}
+        to create
       </div>
     );
   }
