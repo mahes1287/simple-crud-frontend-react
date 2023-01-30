@@ -11,7 +11,7 @@ const DeleteDialog = ({ id }) => {
   async function deleteTranslation() {
     let config = {
       method: "delete",
-      url: `http://127.0.0.1:8000/api/translations/${id}/delete`,
+      url: `${process.env.REACT_APP_BASE_API_URL}/api/translations/${id}/delete`,
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
       },

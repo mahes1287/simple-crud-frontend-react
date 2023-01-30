@@ -18,7 +18,7 @@ export default function TranslationForm() {
     async function create() {
       let config = {
         method: "post",
-        url: "http://127.0.0.1:8000/api/translations/create",
+        url: `${process.env.REACT_APP_BASE_API_URL}/api/translations/create`,
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
           "Content-Type": "application/json",

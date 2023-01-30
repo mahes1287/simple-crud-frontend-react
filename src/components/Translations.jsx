@@ -13,16 +13,17 @@ export default function Translations() {
 
   if (error) {
     return (
-      <div>There is following error: {message}. Contact site administrator</div>
+      <div>
+        <h1>Translations</h1>
+        There is following error: {message}. Contact site administrator
+      </div>
     );
   }
   return (
     <div>
       <h1>Translations</h1>
 
-      {translations.length === 0 ? (
-        <div>Its lonely here... Add some data..</div>
-      ) : (
+      {translations.length ? (
         translations.map(({ input, output, fromUser, id }) => (
           <div
             key={id}
@@ -52,6 +53,8 @@ export default function Translations() {
             </div>
           </div>
         ))
+      ) : (
+        <div>Its lonely here... Add some data..</div>
       )}
     </div>
   );
@@ -60,7 +63,7 @@ export default function Translations() {
 export async function translationsDataLoader() {
   let config = {
     method: "get",
-    url: "http://127.0.0.1:8000/api/translations",
+    url: `${process.env.REACT_APP_BASE_API_URL}/api/translations`,
   };
   try {
     const response = await axios(config);

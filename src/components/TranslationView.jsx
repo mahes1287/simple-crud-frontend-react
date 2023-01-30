@@ -10,7 +10,7 @@ export default function TranslationView() {
     async function getTranslation() {
       let config = {
         method: "get",
-        url: `http://127.0.0.1:8000/api/translations/${id}`,
+        url: `${process.env.REACT_APP_BASE_API_URL}/api/translations/${id}`,
       };
       try {
         const response = await axios(config);

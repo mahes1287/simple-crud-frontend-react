@@ -42,7 +42,7 @@ export default function UpdateForm() {
     async function update() {
       let config = {
         method: "put",
-        url: `http://127.0.0.1:8000/api/translations/${id}/update`,
+        url: `${process.env.REACT_APP_BASE_API_URL}/api/translations/${id}/update`,
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
