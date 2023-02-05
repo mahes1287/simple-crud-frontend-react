@@ -21,6 +21,7 @@ describe("Not found page ::", () => {
     render(<NotFound />, { wrapper: BrowserRouter });
     const linkElement = screen.getByRole("link", { name: "Home" });
     expect(linkElement).toBeInTheDocument();
+    expect(tree).toMatchSnapshot();
     expect(linkElement.getAttribute("href")).toMatchInlineSnapshot(`"/"`);
   });
 });
