@@ -100,7 +100,7 @@ const useAuthProvider = () => {
         setUser(user);
         localStorage.setItem("token", user.accessToken);
       } else {
-        setUser(false);
+        setUser(null);
         localStorage.clear();
       }
     });
