@@ -42,14 +42,19 @@ export default function Translations() {
               >
                 view
               </Link>
-              <Link
-                to={`/translations/${id}/update/`}
-                state={{ input: input, output: output, id: id }}
-                className="m-2 font-semibold bg-blue-100 hover:bg-blue-400 px-4 rounded-lg py-2"
-              >
-                edit
-              </Link>
-              <DeleteDialog id={id} />
+              {!localStorage.getItem("token") && (
+                <>
+                  {" "}
+                  <Link
+                    to={`/translations/${id}/update/`}
+                    state={{ input: input, output: output, id: id }}
+                    className="m-2 font-semibold bg-blue-100 hover:bg-blue-400 px-4 rounded-lg py-2"
+                  >
+                    edit
+                  </Link>
+                  <DeleteDialog id={id} />{" "}
+                </>
+              )}
             </div>
           </div>
         ))
