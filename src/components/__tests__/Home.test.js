@@ -1,18 +1,6 @@
 import Home from "../Home.jsx";
-import {
-  AuthContext,
-  AuthProvider,
-  useAuth,
-} from "../../contexts/AuthContext.js";
-const { render, screen, renderHook } = require("@testing-library/react");
-
-// const mock = null;
-
-// jest.mock("../../contexts/AuthContext", () => ({
-//   useAuth: () => {
-//     return mock;
-//   },
-// }));
+import { AuthContext } from "../../contexts/AuthContext.js";
+const { render, screen } = require("@testing-library/react");
 
 describe("Home Page", () => {
   it("this should render homepage for logged out user", () => {
@@ -26,15 +14,16 @@ describe("Home Page", () => {
     );
 
     const loggedOutElement = screen.getByTestId("logged-out");
-    expect(localStorage.getItem("displayName")).toBe(null);
+    expect(screen.queryByTestId("logged-in")).not.toBeInTheDocument();
     expect(loggedOutElement).toBeInTheDocument();
+    expect(loggedOutElement).toHaveTextContent("You are at sweet home!!!!!");
   });
 
   test("this should render homepage with logged in user", () => {
     const auth = {
       user: { uid: "jfjdffjvnhdf", displayName: "Maheshwaran Velusamy" },
     };
-
+    localStorage.setItem("displayName", auth.user.displayName);
     render(
       <AuthContext.Provider value={auth}>
         <div className="App">
@@ -42,11 +31,12 @@ describe("Home Page", () => {
         </div>
       </AuthContext.Provider>
     );
-    localStorage.setItem("displayName", "Maheshwaran Velusamy");
 
-    const homeElement = screen.getByTestId("logged-in");
-    expect(homeElement).toBeInTheDocument();
+    const loggedInElement = screen.getByTestId("logged-in");
+    expect(loggedInElement).toBeInTheDocument();
     expect(screen.queryByTestId("logged-out")).not.toBeInTheDocument();
-    expect(localStorage.getItem("displayName")).toBe("Maheshwaran Velusamy");
+    expect(loggedInElement).toHaveTextContent(
+      "Hello Maheshwaran Velusamy welcome to our app"
+    );
   });
 });
