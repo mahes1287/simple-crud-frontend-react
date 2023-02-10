@@ -3,7 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 export default function Home() {
   const { user } = useAuth();
-  console.log({ user });
+  // console.log({ user });
   if (user) {
     return (
       <div

@@ -17,6 +17,7 @@ import Translations, {
 import UpdateForm from "./components/UpdateForm";
 import { AuthProvider } from "./contexts/AuthContext";
 import TranslationView from "./components/TranslationView";
+
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -37,6 +38,7 @@ function App() {
       </Route>
     )
   );
+
   return (
     <AuthProvider>
       <div className="App">

@@ -1,26 +1,52 @@
 import Home from "../Home.jsx";
-import { AuthProvider } from "../../contexts/AuthContext.js";
-const { render, screen } = require("@testing-library/react");
+import {
+  AuthContext,
+  AuthProvider,
+  useAuth,
+} from "../../contexts/AuthContext.js";
+const { render, screen, renderHook } = require("@testing-library/react");
 
-const localStorageMock = {
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-  removeItem: jest.fn(),
-  clear: jest.fn(),
-};
+// const mock = null;
 
-global.localStorage = localStorageMock;
+// jest.mock("../../contexts/AuthContext", () => ({
+//   useAuth: () => {
+//     return mock;
+//   },
+// }));
 
-test("this should render homepage without user loggedin", () => {
-  render(
-    <AuthProvider>
-      <div className="App">
-        <Home />
-      </div>
-    </AuthProvider>
-  );
+describe("Home Page", () => {
+  it("this should render homepage for logged out user", () => {
+    const auth = { user: null };
+    render(
+      <AuthContext.Provider value={auth}>
+        <div className="App">
+          <Home />
+        </div>
+      </AuthContext.Provider>
+    );
 
-  const homeElement = screen.getByTestId("home-not-logged-in");
-  expect(homeElement).toBeInTheDocument();
-  expect(localStorageMock.getItem).toHaveBeenCalled("displayName");
+    const loggedOutElement = screen.getByTestId("logged-out");
+    expect(localStorage.getItem("displayName")).toBe(null);
+    expect(loggedOutElement).toBeInTheDocument();
+  });
+
+  test("this should render homepage with logged in user", () => {
+    const auth = {
+      user: { uid: "jfjdffjvnhdf", displayName: "Maheshwaran Velusamy" },
+    };
+
+    render(
+      <AuthContext.Provider value={auth}>
+        <div className="App">
+          <Home />
+        </div>
+      </AuthContext.Provider>
+    );
+    localStorage.setItem("displayName", "Maheshwaran Velusamy");
+
+    const homeElement = screen.getByTestId("logged-in");
+    expect(homeElement).toBeInTheDocument();
+    expect(screen.queryByTestId("logged-out")).not.toBeInTheDocument();
+    expect(localStorage.getItem("displayName")).toBe("Maheshwaran Velusamy");
+  });
 });

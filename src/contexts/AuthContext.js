@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { app } from "../firebase";
+import { firebaseConfig } from "../firebase";
 
 import {
   GoogleAuthProvider,
@@ -10,10 +10,11 @@ import {
   sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
+
 import getUserAPI from "../api/getUserAPI";
 
-const AuthContext = createContext();
-const auth = getAuth(app);
+export const AuthContext = createContext();
+const auth = getAuth(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -86,7 +87,7 @@ const useAuthProvider = () => {
 
   const logout = async () => {
     await signOut(auth);
-    setUser(false);
+    setUser(null);
   };
 
   // Subscribe to user on mount

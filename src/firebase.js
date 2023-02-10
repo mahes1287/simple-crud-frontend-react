@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 
-export const app = initializeApp({
+export const firebaseConfig = initializeApp({
   apiKey: process.env.REACT_APP_APIKEY,
   authDomain: process.env.REACT_APP_AUTHDOMAIN,
   projectId: process.env.REACT_APP_PROJECTID,
