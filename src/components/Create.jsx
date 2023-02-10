@@ -49,7 +49,7 @@ export default function TranslationForm() {
   }
 
   return (
-    <div className="bg-gray-100 container mx-auto">
+    <div className="container mx-auto px-2 pt-5">
       <div>Create new translation</div>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8 pt-5 space-y-6">
         <div className="rounded-md shadow-sm space-y-5">
@@ -84,7 +84,7 @@ export default function TranslationForm() {
 
         <button
           type="submit"
-          className="m-2 font-semibold bg-green-100 hover:bg-green-400 px-4 rounded-lg py-2"
+          className="m-2 font-semibold bg-blue-400 hover:bg-blue-700 px-4 rounded-lg py-2"
         >
           Submit
         </button>
