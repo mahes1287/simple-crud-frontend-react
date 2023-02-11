@@ -32,9 +32,9 @@ export default function TranslationView() {
     return <div>Loading....</div>;
   }
   return (
-    <div className="flex flex-col space-y-2 max-w-7xl ml-5 mx-auto bg-orange-100 m-5 rounded-lg shadow-md hover:bg-orange-200">
+    <div className="flex flex-col space-y-2 max-w-7xl m-5 bg-orange-100 rounded-lg shadow-md hover:bg-orange-200">
       {data && data.error ? (
-        <div className="text-xl ml-3 py-3">
+        <div className="text-xl ml-3 py-3 text-center">
           Requested translation not available.{" "}
         </div>
       ) : (
@@ -56,7 +56,7 @@ export default function TranslationView() {
                   className="m-2 font-semibold bg-yellow-100 hover:bg-yellow-500 px-4 rounded-lg py-2"
                   onClick={() => navigate(-1) || navigate("/translations")}
                 >
-                  Go back or Translations
+                  Go back
                 </button>
                 <Link
                   to={`/translations/${id}/update/`}
@@ -73,7 +73,7 @@ export default function TranslationView() {
               className="m-2 font-semibold bg-yellow-100 hover:bg-yellow-500 px-4 rounded-lg py-2"
               onClick={() => navigate(-1) || navigate("/translations")}
             >
-              Go back or Translations
+              Go back
             </button>
           )}
         </>

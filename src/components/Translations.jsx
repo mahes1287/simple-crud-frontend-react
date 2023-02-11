@@ -29,10 +29,10 @@ export default function Translations() {
               key={id}
               className="flex flex-col space-y-2 max-w-7xl ml-5 mx-auto  bg-orange-100  rounded-lg shadow-md hover:bg-orange-200"
             >
-              <div className="text-xl ml-3 py-3">
+              <div className="text-xl ml-3 py-3 truncate">
                 <span className="italic ">input: </span> {input}
               </div>
-              <div className="text-xl ml-3 py-3">
+              <div className="text-xl ml-3 py-3 truncate">
                 <span className="italic ">output: </span> {output}
               </div>
               <div className="flex sm:flex-col md:flex-row justify-center items-center">
