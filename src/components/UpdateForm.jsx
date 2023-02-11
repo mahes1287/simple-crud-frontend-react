@@ -18,7 +18,7 @@ export default function UpdateForm() {
     async function getData() {
       let config = {
         method: "get",
-        url: `http://127.0.0.1:8000/api/translations/${id}`,
+        url: `${process.env.REACT_APP_BASE_API_URL}/api/translations/${id}`,
       };
       try {
         const response = await axios(config);
@@ -61,7 +61,7 @@ export default function UpdateForm() {
 
   if (!localStorage.getItem("token")) {
     return (
-      <div>
+      <div className="container mx-auto px-2 pt-5">
         Please{" "}
         <Link to={"/login"} className="text-blue-500 hover:text-blue-800">
           Login
@@ -72,7 +72,8 @@ export default function UpdateForm() {
   }
 
   return (
-    <div className="bg-gray-100">
+    <div className="container mx-auto px-2 pt-5">
+      <div>Update a translation</div>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8 pt-5 space-y-6">
         <div className="rounded-md shadow-sm space-y-5">
           <label
@@ -108,8 +109,11 @@ export default function UpdateForm() {
           ></textarea>
         </div>
 
-        <button type="submit" className="">
-          Submit
+        <button
+          type="submit"
+          className="m-2 font-semibold bg-blue-400 hover:bg-blue-700 px-4 rounded-lg py-2"
+        >
+          Update
         </button>
       </form>
     </div>
