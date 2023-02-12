@@ -1,16 +1,33 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 import DeleteDialog from "./DeleteDialog";
+import Loading from "./Loading";
 
 export default function Translations() {
-  const [translations, setTranslations] = useState([]);
+  const [translations, setTranslations] = useState();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState("");
 
-  const { data, error, message } = useLoaderData();
+
+
   useEffect(() => {
-    return setTranslations(data);
-  }, [data]);
+    async function getData() {
+      setLoading(true);
+      const { data, error, message } = await translationsDataLoader();
+      setTranslations(data);
+      setError(error);
+      setMessage(message);
+      setLoading(false);
+    }
 
+    getData();
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
   if (error) {
     return (
       <div>
@@ -52,7 +69,7 @@ export default function Translations() {
                     >
                       edit
                     </Link>
-                    <DeleteDialog id={id} />{" "}
+                    <DeleteDialog id={id}/>{" "}
                   </>
                 )}
               </div>
@@ -69,18 +86,17 @@ export default function Translations() {
 export async function translationsDataLoader() {
   let config = {
     method: "get",
-    url: `${process.env.REACT_APP_BASE_API_URL}/api/translations`,
+    url: `${process.env.REACT_APP_BASE_API_URL}/api/translations/`,
   };
+
   try {
     const response = await axios(config);
-    console.log({ response });
     return { data: response.data, error: false, message: null };
   } catch (error) {
-    console.log(JSON.parse(error.request.responseText).detail);
     return {
       data: null,
       error: true,
-      message: JSON.parse(error.request.responseText).detail,
+      message: "Something went wrong",
     };
   }
 }

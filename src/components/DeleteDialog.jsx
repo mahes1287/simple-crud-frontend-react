@@ -18,6 +18,7 @@ const DeleteDialog = ({ id }) => {
       await axios(config);
       setShowModal(false);
       navigate("/translations");
+      navigate(0);
     } catch (error) {
       console.log(error);
     }

@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { SyncLoader } from "react-spinners";
 import { useAuth } from "../contexts/AuthContext";
+import Loading from "./Loading";
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
   const { user } = useAuth();
+  useEffect(() => {
+    user ? setLoading(false) : setLoading(false);
+  }, [loading, user]);
+
   // console.log({ user });
+  if (loading) {
+    return <Loading />;
+  }
   if (user) {
     return (
       <div

@@ -5,18 +5,18 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import "./App.css";
-import Create from "./components/Create";
-import Home from "./components/Home";
-import Login from "./components/Login";
-import Navbar from "./components/Navbar";
-import NotFound from "./components/NotFound";
-import Register from "./components/Register";
-import Translations, {
-  translationsDataLoader,
-} from "./components/Translations";
-import UpdateForm from "./components/UpdateForm";
+import {
+  Create,
+  Home,
+  Login,
+  Navbar,
+  NotFound,
+  Register,
+  Translations,
+  UpdateForm,
+  TranslationView,
+} from "./components";
 import { AuthProvider } from "./contexts/AuthContext";
-import TranslationView from "./components/TranslationView";
 
 function App() {
   const router = createBrowserRouter(
@@ -24,9 +24,9 @@ function App() {
       <Route path="/" element={<Root />}>
         <Route index element={<Home />} />
         <Route
+          forceRefresh={true}
           path="/translations"
           element={<Translations />}
-          loader={translationsDataLoader}
         />
         <Route path="/translations/:id/" element={<TranslationView />} />
         <Route path="/translations/:id/update/" element={<UpdateForm />} />
