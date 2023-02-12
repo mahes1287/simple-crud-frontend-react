@@ -1,0 +1,266 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Translations /> should render -Its lonely here...- when data from api is empty array [] 1`] = `
+<DocumentFragment>
+  <div>
+    <h1
+      class="text-2xl text-center "
+    >
+      List of Translations
+    </h1>
+    <div
+      class="space-y-3 p-6"
+    >
+      <div>
+        Its lonely here... Add some data..
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Translations /> should render Loading screen 1`] = `
+<DocumentFragment>
+  <div
+    class="container mx-auto text-center p-10 space-y-3"
+  >
+    <span
+      style="display: inherit;"
+    >
+      <span
+        style="background-color: rgb(54, 55, 214); width: 15px; height: 15px; margin: 2px; border-radius: 100%; display: inline-block; animation: react-spinners-SyncLoader-sync 0.6s 0.07s infinite ease-in-out; animation-fill-mode: both;"
+      />
+      <span
+        style="background-color: rgb(54, 55, 214); width: 15px; height: 15px; margin: 2px; border-radius: 100%; display: inline-block; animation: react-spinners-SyncLoader-sync 0.6s 0.14s infinite ease-in-out; animation-fill-mode: both;"
+      />
+      <span
+        style="background-color: rgb(54, 55, 214); width: 15px; height: 15px; margin: 2px; border-radius: 100%; display: inline-block; animation: react-spinners-SyncLoader-sync 0.6s 0.21000000000000002s infinite ease-in-out; animation-fill-mode: both;"
+      />
+    </span>
+    <h1>
+      Loading...
+    </h1>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Translations /> should render error while fetching data 1`] = `
+<DocumentFragment>
+  <div>
+    <h1
+      class="text-2xl text-center"
+    >
+      Translations
+    </h1>
+    There is following error: Something went wrong. Contact site administrator
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Translations /> should render list  of translations when data available 1`] = `
+<DocumentFragment>
+  <div>
+    <h1
+      class="text-2xl text-center "
+    >
+      List of Translations
+    </h1>
+    <div
+      class="space-y-3 p-6"
+    >
+      <div
+        class="flex flex-col space-y-2 max-w-7xl ml-5 mx-auto  bg-orange-100  rounded-lg shadow-md hover:bg-orange-200"
+      >
+        <div
+          class="text-xl ml-3 py-3 truncate"
+        >
+          <span
+            class="italic "
+          >
+            input: 
+          </span>
+           input1
+        </div>
+        <div
+          class="text-xl ml-3 py-3 truncate"
+        >
+          <span
+            class="italic "
+          >
+            output: 
+          </span>
+           ouput1
+        </div>
+        <div
+          class="flex sm:flex-col md:flex-row justify-center items-center"
+        >
+          <a
+            class="m-2 font-semibold bg-green-100 hover:bg-green-400 px-4 rounded-lg py-2"
+            href="/translations/1/"
+          >
+            view
+          </a>
+           
+          <a
+            class="m-2 font-semibold bg-blue-100 hover:bg-blue-400 px-4 rounded-lg py-2"
+            href="/translations/1/update/"
+          >
+            edit
+          </a>
+          <button
+            class="m-2 font-semibold bg-red-100 hover:bg-red-400 px-4 rounded-lg py-2"
+            type="button"
+          >
+            Delete
+          </button>
+           
+        </div>
+      </div>
+      <div
+        class="flex flex-col space-y-2 max-w-7xl ml-5 mx-auto  bg-orange-100  rounded-lg shadow-md hover:bg-orange-200"
+      >
+        <div
+          class="text-xl ml-3 py-3 truncate"
+        >
+          <span
+            class="italic "
+          >
+            input: 
+          </span>
+           input2
+        </div>
+        <div
+          class="text-xl ml-3 py-3 truncate"
+        >
+          <span
+            class="italic "
+          >
+            output: 
+          </span>
+           eeeeeerkkkkkkkkkkkkkkkkkkkkkkkk
+        </div>
+        <div
+          class="flex sm:flex-col md:flex-row justify-center items-center"
+        >
+          <a
+            class="m-2 font-semibold bg-green-100 hover:bg-green-400 px-4 rounded-lg py-2"
+            href="/translations/2/"
+          >
+            view
+          </a>
+           
+          <a
+            class="m-2 font-semibold bg-blue-100 hover:bg-blue-400 px-4 rounded-lg py-2"
+            href="/translations/2/update/"
+          >
+            edit
+          </a>
+          <button
+            class="m-2 font-semibold bg-red-100 hover:bg-red-400 px-4 rounded-lg py-2"
+            type="button"
+          >
+            Delete
+          </button>
+           
+        </div>
+      </div>
+      <div
+        class="flex flex-col space-y-2 max-w-7xl ml-5 mx-auto  bg-orange-100  rounded-lg shadow-md hover:bg-orange-200"
+      >
+        <div
+          class="text-xl ml-3 py-3 truncate"
+        >
+          <span
+            class="italic "
+          >
+            input: 
+          </span>
+           www
+        </div>
+        <div
+          class="text-xl ml-3 py-3 truncate"
+        >
+          <span
+            class="italic "
+          >
+            output: 
+          </span>
+           dfdffd
+        </div>
+        <div
+          class="flex sm:flex-col md:flex-row justify-center items-center"
+        >
+          <a
+            class="m-2 font-semibold bg-green-100 hover:bg-green-400 px-4 rounded-lg py-2"
+            href="/translations/3/"
+          >
+            view
+          </a>
+           
+          <a
+            class="m-2 font-semibold bg-blue-100 hover:bg-blue-400 px-4 rounded-lg py-2"
+            href="/translations/3/update/"
+          >
+            edit
+          </a>
+          <button
+            class="m-2 font-semibold bg-red-100 hover:bg-red-400 px-4 rounded-lg py-2"
+            type="button"
+          >
+            Delete
+          </button>
+           
+        </div>
+      </div>
+      <div
+        class="flex flex-col space-y-2 max-w-7xl ml-5 mx-auto  bg-orange-100  rounded-lg shadow-md hover:bg-orange-200"
+      >
+        <div
+          class="text-xl ml-3 py-3 truncate"
+        >
+          <span
+            class="italic "
+          >
+            input: 
+          </span>
+           ooooooooooooooooooo
+        </div>
+        <div
+          class="text-xl ml-3 py-3 truncate"
+        >
+          <span
+            class="italic "
+          >
+            output: 
+          </span>
+           iiiiiiiiiiiiiiiiiiiiiiii
+        </div>
+        <div
+          class="flex sm:flex-col md:flex-row justify-center items-center"
+        >
+          <a
+            class="m-2 font-semibold bg-green-100 hover:bg-green-400 px-4 rounded-lg py-2"
+            href="/translations/4/"
+          >
+            view
+          </a>
+           
+          <a
+            class="m-2 font-semibold bg-blue-100 hover:bg-blue-400 px-4 rounded-lg py-2"
+            href="/translations/4/update/"
+          >
+            edit
+          </a>
+          <button
+            class="m-2 font-semibold bg-red-100 hover:bg-red-400 px-4 rounded-lg py-2"
+            type="button"
+          >
+            Delete
+          </button>
+           
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Home /> snapshot for logged in user 1`] = `
+<div
+  className="App"
+>
+  <div
+    className="container mx-auto text-center p-6"
+    data-testid="logged-in"
+  >
+    <h1>
+      Hello
+       
+      <span
+        className="text-orange-500 text-xl"
+      >
+        Maheshwaran Velusamy
+      </span>
+       
+      welcome to our app
+    </h1>
+    <div>
+      Now you have a super power to add things !
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Home /> snapshot for logged out user 1`] = `
+<div
+  className="App"
+>
+  <div
+    className="container mx-auto text-center p-10 space-y-3"
+  >
+    <span
+      style={
+        Object {
+          "display": "inherit",
+        }
+      }
+    >
+      <span
+        style={
+          Object {
+            "animation": "react-spinners-SyncLoader-sync 0.6s 0.07s infinite ease-in-out",
+            "animationFillMode": "both",
+            "backgroundColor": "rgba(54, 55, 214, 1)",
+            "borderRadius": "100%",
+            "display": "inline-block",
+            "height": "15px",
+            "margin": "2px",
+            "width": "15px",
+          }
+        }
+      />
+      <span
+        style={
+          Object {
+            "animation": "react-spinners-SyncLoader-sync 0.6s 0.14s infinite ease-in-out",
+            "animationFillMode": "both",
+            "backgroundColor": "rgba(54, 55, 214, 1)",
+            "borderRadius": "100%",
+            "display": "inline-block",
+            "height": "15px",
+            "margin": "2px",
+            "width": "15px",
+          }
+        }
+      />
+      <span
+        style={
+          Object {
+            "animation": "react-spinners-SyncLoader-sync 0.6s 0.21000000000000002s infinite ease-in-out",
+            "animationFillMode": "both",
+            "backgroundColor": "rgba(54, 55, 214, 1)",
+            "borderRadius": "100%",
+            "display": "inline-block",
+            "height": "15px",
+            "margin": "2px",
+            "width": "15px",
+          }
+        }
+      />
+    </span>
+    <h1>
+      Loading...
+    </h1>
+  </div>
+</div>
+`;
