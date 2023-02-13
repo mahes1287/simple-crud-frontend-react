@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { SyncLoader } from "react-spinners";
 import { useAuth } from "../contexts/AuthContext";
 import Loading from "./Loading";
 
