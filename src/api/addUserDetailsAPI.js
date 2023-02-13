@@ -8,8 +8,8 @@ export default async function addUserDetailsAPI(
   displayName
 ) {
   let config = {
-    method: "post",
-    url: `${process.env.REACT_APP_BASE_API_URL}/api/user/create`,
+    method: "POST",
+    url: `${process.env.REACT_APP_BASE_API_URL}/api/user/create/`,
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
       "Content-Type": "application/json",
@@ -20,6 +20,7 @@ export default async function addUserDetailsAPI(
       first_name: firstname,
       last_name: lastname,
       displayName: displayName,
+      username: email,
     }),
   };
   try {
