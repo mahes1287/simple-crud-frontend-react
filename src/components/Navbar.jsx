@@ -8,6 +8,7 @@ export default function Navbar() {
   const handleLogout = () => {
     logout();
     navigate("/");
+    localStorage.clear();
   };
   return (
     <div>
