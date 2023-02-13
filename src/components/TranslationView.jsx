@@ -40,6 +40,9 @@ export default function TranslationView() {
       ) : (
         <>
           <div className="text-xl ml-3 py-3">
+            <span className="italic ">id: </span> {data.id}
+          </div>
+          <div className="text-xl ml-3 py-3">
             <span className="italic ">input: </span> {data.input}
           </div>
           <div className="text-xl ml-3 py-3">
