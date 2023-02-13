@@ -18,11 +18,11 @@ export default function UpdateForm() {
     async function getData() {
       let config = {
         method: "get",
-        url: `${process.env.REACT_APP_BASE_API_URL}/api/translations/${id}`,
+        url: `${process.env.REACT_APP_BASE_API_URL}/api/translations/${id}/`,
       };
       try {
         const response = await axios(config);
-        setData(response.data);
+        setData(response.data.data);
       } catch (error) {
         console.log(JSON.parse(error.request.responseText).detail);
         return {

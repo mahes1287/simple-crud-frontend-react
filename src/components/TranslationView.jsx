@@ -12,12 +12,12 @@ export default function TranslationView() {
     async function getTranslation() {
       let config = {
         method: "get",
-        url: `${process.env.REACT_APP_BASE_API_URL}/api/translations/${id}`,
+        url: `${process.env.REACT_APP_BASE_API_URL}/api/translations/${id}/`,
       };
       try {
         const response = await axios(config);
-        console.log(response);
-        setData(response.data);
+        // console.log(response);
+        setData(response.data.data);
         setLoading(false);
         return response.data;
       } catch (error) {

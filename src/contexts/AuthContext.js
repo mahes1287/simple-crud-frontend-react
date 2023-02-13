@@ -50,9 +50,10 @@ const useAuthProvider = () => {
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
       localStorage.setItem("token", response.user.accessToken);
-      localStorage.setItem("displayName", response.user.displayName);
       setUser(response.user);
-      await getUserAPI(response.user.uid);
+      const userResponse = await getUserAPI(response.user.uid);
+      localStorage.setItem("displayName", userResponse.data.displayName);
+
       return response.user;
     } catch (err) {
       console.error(err);
@@ -68,6 +69,9 @@ const useAuthProvider = () => {
         password
       );
       setUser(response.user);
+      console.log("from registerWithEmailAndPassword");
+      localStorage.setItem("token", response.user.accessToken);
+      localStorage.setItem("displayName", name);
       return response.user;
     } catch (err) {
       console.error(err);
